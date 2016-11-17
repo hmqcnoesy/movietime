@@ -31,6 +31,7 @@
         for(candidate in allData.candidates) {
             result = { candidateName: candidate, voteTally: 0, votesFor:[], votesNon:[], votesAgainst:[]}
             for(voter in allData.candidates[candidate]) {
+                if (voter.indexOf("votes") == 0) continue;
                 var score = allData.candidates[candidate][voter];
                 result.voteTally += score;
                 if (score == 2) result.votesFor.push(voter);
@@ -54,9 +55,9 @@
             var img = cloned.getElementsByTagName('img')[0];
             img.src = 'img/' + sortedCandidates[i].candidateName;
 
-            cloned.querySelector('label[data-value="2"]').innerHTML += sortedCandidates[i].votesFor.join(', ');
-            cloned.querySelector('label[data-value="1"]').innerHTML += sortedCandidates[i].votesNon.join(', ');
-            cloned.querySelector('label[data-value="0"]').innerHTML += sortedCandidates[i].votesAgainst.join(', ');
+            cloned.querySelector('label[data-value="2"]').innerHTML += '<div class="small">' + sortedCandidates[i].votesFor.join('</div><div class="small">') + '</div>';
+            cloned.querySelector('label[data-value="1"]').innerHTML += '<div class="small">' + sortedCandidates[i].votesNon.join('</div><div class="small">') + '</div>';
+            cloned.querySelector('label[data-value="0"]').innerHTML += '<div class="small">' + sortedCandidates[i].votesAgainst.join('</div><div class="small">') + '</div>';
 
             target.appendChild(cloned);
         }
