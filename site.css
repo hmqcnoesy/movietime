@@ -10,16 +10,16 @@ h1 { background-color: #293e60; color: white; padding: 0.25em 0.5em; margin: 0;}
 .img-container { display: inline-block; height: 150px; width: 100px; }
 img {width: 100px; height: 150px; vertical-align: middle; }
 .img-padded { padding: 0.4em }
-label { display: inline-block; font-family: Segoe UI Emoji; font-size: 1.5em; margin: 0; padding: 0; text-align: center; }
+label { display: inline-block; width: 4rem; font-family: Segoe UI Emoji; font-size: 1.5em; margin: 0; padding: 0; text-align: center; }
 input:checked + label { font-size: 3em; }
 input { display:none; }
 
 @media screen and (min-width: 48em) {
-    label { width: 8rem; }
+    label { width: 8rem; font-size: 2em; }
     input:checked + label { font-size: 4em; }
 }
 
 @media screen and (min-width: 64em) {
-    label { width: 10rem; }
+    label { width: 10rem; font-size: 2em; }
     input:checked + label { font-size: 5em; }
 }
