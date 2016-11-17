@@ -1,0 +1,47 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Time</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head> 
+<body>
+<h1>Movie Time</h1>
+
+<p>Registered Voters:
+<ul id="ulRegisteredVoters"></ul>
+</p>
+<p><a href="results.html">Election Results</a></p>
+<p><a href="registervoters.html">Register voters</a></p>
+<p><a href="createelection.html">Create new election</a></p>
+
+
+<p>
+    <div id="divCurrentElection"></div>
+</p>
+
+<script src="js/site.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var allData = getAllSavedData();
+        if (allData && allData.voters) {
+            var target = document.getElementById('ulRegisteredVoters');
+            for(var i = 0; i < allData.voters.length; i++) {
+                target.innerHTML += '<li><a href="vote.html?' + encodeURIComponent(allData.voters[i]) + '">' + allData.voters[i] + '</a></li>';
+            }
+        }
+
+        if (allData && allData.candidates) {
+            var target = document.getElementById('divCurrentElection');
+            var html = '';
+            for (candidate in allData.candidates) {
+                html += '<img class="img-padded" src="img/' + candidate + '" />';
+            }
+            target.innerHTML = 'Current election info: <div>' + html + '</div>';
+        }
+    });
+</script>
+
+</body>
+</html>

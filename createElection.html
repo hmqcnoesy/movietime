@@ -1,0 +1,76 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Time</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+<h1>Movie Time - Create Election</h1>
+
+<p><a href="index.html">Back to Home</a></p>
+
+<div id="template" class="race template">
+    <img src="" data-src="" />
+    <label>♻️</label>
+</div>
+
+<div id="divCandidates">
+
+</div>
+
+<div>
+    <button id="btn">Create Election</button>
+</div>
+
+<script src="js/site.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        getRandomCandidates(15, function(data) {
+            var templateNode = document.getElementById('template');
+            var target = document.getElementById('divCandidates');
+            for (var i = 0; i < data.length; i++) {
+                var cloned = templateNode.cloneNode(true);
+                cloned.removeAttribute('id');
+                cloned.classList.remove('template');
+                var img = cloned.getElementsByTagName('img')[0];
+                img.src = 'img/' + data[i];
+                img.setAttribute('data-src', data[i]);
+                target.appendChild(cloned);
+            }
+        }, function(status) {
+            alert(status);
+        });
+    });
+
+    document.addEventListener('click', function (e) {
+        if (e.target.tagName != 'LABEL') return;
+
+        var prevSibling = e.target.previousSibling;
+        while (prevSibling && prevSibling.nodeType != 1) {
+            prevSibling = prevSibling.previousSibling;
+        }
+        
+        getRandomCandidates(1, function(data) {
+            prevSibling.setAttribute('src', 'img/' + data[0]);
+            prevSibling.setAttribute('data-src', data[0]);
+        });
+    });
+
+    document.getElementById('btn').addEventListener('click', function () {
+        var candidates = {};
+        var images = document.getElementsByTagName('img');
+        for (var i = 0; i < images.length; i++) {
+            if (images[i].parentNode.classList.contains('template')) continue;
+            candidates[images[i].getAttribute('data-src')] = { };
+        }
+
+        saveData({candidates: candidates});
+        alert('Election created.');
+        window.location = 'index.html';
+    });
+</script>
+</body>
+</html>

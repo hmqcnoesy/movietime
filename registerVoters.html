@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Time</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+<h1>Register Voters</h1>
+
+<p><a href="index.html">Back to Home</a></p>
+
+<textarea id="txtVoters" rows="8">
+</textarea>
+
+<div>
+    <button id="btn">Save Voter Registrations</button>
+</div>
+
+<script src="js/site.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var data = getAllSavedData();
+        var voters = data.voters || [];
+        var txt = document.getElementById('txtVoters');
+
+        for (var i = 0; i < voters.length; i++) {
+            txt.innerHTML += voters[i] + '\r\n';
+        }
+    });
+
+    document.getElementById('btn').addEventListener('click', function () {
+        var voters = [];
+        var voterStrings = document.getElementById('txtVoters').value.split('\n');
+
+        for (var i = 0; i < voterStrings.length; i++) {
+            if (voterStrings[i].trim() != '') voters.push(voterStrings[i]);
+        }
+
+        saveData({voters: voters});
+        alert('Saved.');
+        window.location = 'index.html';
+    });
+</script>
+</body>
+</html>

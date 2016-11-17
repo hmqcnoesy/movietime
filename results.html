@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Time</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+<h1>Election Results</h1>
+
+<p><a href="index.html">Home</a></p>
+
+<div id="template" class="race template">
+    <div class="img-container"><img /></div>
+    <label data-value="2">🙂</label>
+    <label data-value="1">😐</label>
+    <label data-value="0">☹️</label>
+</div>
+
+<div id="divCandidates">
+</div>
+
+<script src="js/site.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var allData = getAllSavedData();
+        if (!allData || !allData.candidates) return;
+        var sortedCandidates = [];
+        var result;
+        for(candidate in allData.candidates) {
+            result = { candidateName: candidate, voteTally: 0, votesFor:[], votesNon:[], votesAgainst:[]}
+            for(voter in allData.candidates[candidate]) {
+                var score = allData.candidates[candidate][voter];
+                result.voteTally += score;
+                if (score == 2) result.votesFor.push(voter);
+                else if (score == 0) result.votesAgainst.push(voter);
+                else result.votesNon.push(voter);
+            }
+            
+            sortedCandidates.push(result);
+        }
+
+        sortedCandidates = sortedCandidates.sort(function(a, b) {
+            return b.voteTally - a.voteTally;
+        });
+
+        var templateNode = document.getElementById('template');
+        var target = document.getElementById('divCandidates');
+        for (var i = 0; i < sortedCandidates.length; i++) {
+            var cloned = templateNode.cloneNode(true);
+            cloned.removeAttribute('id');
+            cloned.classList.remove('template');
+            var img = cloned.getElementsByTagName('img')[0];
+            img.src = 'img/' + sortedCandidates[i].candidateName;
+
+            cloned.querySelector('label[data-value="2"]').innerHTML += sortedCandidates[i].votesFor.join(', ');
+            cloned.querySelector('label[data-value="1"]').innerHTML += sortedCandidates[i].votesNon.join(', ');
+            cloned.querySelector('label[data-value="0"]').innerHTML += sortedCandidates[i].votesAgainst.join(', ');
+
+            target.appendChild(cloned);
+        }
+    });
+</script>
+
+</body>
+</html>

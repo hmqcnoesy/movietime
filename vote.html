@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Movie Time</title>
+    <link rel="stylesheet" href="css/site.css" />
+</head>
+<body>
+
+<h1>Hello, <span id="spanVoterName"></span></h1>
+<p>
+    <a href="index.html">Home</a>
+</p>
+
+<div id="template" class="race template">
+    <div class="img-container"><img /></div>
+
+    <input type="radio" name="" value="2" />
+    <label>🙂</label>
+
+    <input type="radio" name="" value="1" />
+    <label>😐</label>
+
+    <input type="radio" name="" value="0" />
+    <label>☹️</label>
+</div>
+
+<div id="divCandidates">
+</div>
+
+<p>
+    <button id="btn">OK!</button>
+</p>
+
+<script src="js/site.js"></script>
+<script>
+    var voterName = window.location.search.substring(1);
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var allData = getAllSavedData();
+        if (!allData || !allData.voters || allData.voters.indexOf(voterName) < 0) {
+            alert('This voter is not registered.');
+            window.location = "index.html";
+        }
+        document.getElementById('spanVoterName').innerHTML = voterName; 
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        var allData = getAllSavedData();
+        if (!allData || !allData.candidates) {
+            alert('No current election.');
+            window.location('index.html');
+        }
+
+        var templateNode = document.getElementById('template');
+        var target = document.getElementById('divCandidates');
+        for (var candidate in allData.candidates) {
+            var cloned = templateNode.cloneNode(true);
+            cloned.removeAttribute('id');
+            cloned.classList.remove('template');
+            var img = cloned.getElementsByTagName('img')[0];
+            img.src = 'img/' + candidate;
+            img.setAttribute('data-src', candidate);
+
+            var label = cloned.querySelector('input[value="2"] + label');
+            label.setAttribute('for', candidate + '2');
+            var input = cloned.querySelector('input[value="2"]');
+            input.id = candidate + '2';
+            input.name = candidate;
+            if (allData.candidates[candidate][voterName] == 2) input.checked = true;
+
+            label = cloned.querySelector('input[value="1"] + label');
+            label.setAttribute('for', candidate + '1');
+            input = cloned.querySelector('input[value="1"]');
+            input.id = candidate + '1';
+            input.name = candidate;
+            if (allData.candidates[candidate][voterName] == 1) input.checked = true;
+
+            label = cloned.querySelector('input[value="0"] + label');
+            label.setAttribute('for', candidate + '0');
+            input = cloned.querySelector('input[value="0"]');
+            input.id = candidate + '0';
+            input.name = candidate;
+            if (allData.candidates[candidate][voterName] == 0) input.checked = true;
+
+            target.appendChild(cloned);
+        }
+    });
+
+    document.getElementById('btn').addEventListener('click', function() {
+        var voterName = document.getElementById('spanVoterName').innerHTML;
+        var votes2 = document.querySelectorAll('#divCandidates input:checked[value="2"]');
+        var votes1 = document.querySelectorAll('#divCandidates input:checked[value="1"]');
+        var votes0 = document.querySelectorAll('#divCandidates input:checked[value="0"]');
+        var allData = getAllSavedData();
+
+        for (var i = 0; i < votes2.length; i++) {
+            var candidateName = votes2[i].getAttribute('name');
+            allData.candidates[candidateName][voterName] = 2;
+        }
+
+        for (var i = 0; i < votes1.length; i++) {
+            var candidateName = votes1[i].getAttribute('name');
+            allData.candidates[candidateName][voterName] = 1;
+        }
+
+        for (var i = 0; i < votes0.length; i++) {
+            var candidateName = votes0[i].getAttribute('name');
+            allData.candidates[candidateName][voterName] = 0;
+        }
+
+        saveData(allData);
+
+        var idx = allData.voters.indexOf(voterName);
+        if (idx < allData.voters.length - 1) {
+            alert(allData.voters[idx+1] + "'s turn!");
+            window.location = "vote.html?" + allData.voters[idx+1];
+        } else {
+            alert('All done!');
+            window.location = "index.html";
+        }
+    });
+</script>
+
+</body>
+</html>

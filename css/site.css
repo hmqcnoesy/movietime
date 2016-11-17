@@ -1,0 +1,15 @@
+
+html { font-family: Segoe UI, Arial, Helvetica, sans-serif; background-color: #aaa; padding:0; }
+body {  background-color: gainsboro; max-width: 900px; padding-bottom: 200px; margin: auto; padding: 1.5em; }
+a { color: #293e60; }
+button { width: 100%; padding: 0.5em; background-color: #293e60; font-size: 1.5em; color: white; }
+h1 { background-color: #293e60; color: white; padding: 0.25em 0.5em; margin: 0;}
+.template { display: none; }
+.race { padding: 1em; }
+.race:nth-child(odd) {background-color: white;}
+.img-container { display: inline-block; height: 150px; width: 100px; }
+img {width: 100px; height: 150px; vertical-align: middle; }
+.img-padded { padding: 0.4em }
+label { display: inline-block; font-family: Segoe UI Emoji; width: 200px; font-size: 1.5em; margin: 0; padding: 0; text-align: center; }
+input:checked + label { font-size: 4.5em; }
+input { display:none; }
