@@ -4,6 +4,8 @@ body {  background-color: gainsboro; max-width: 900px; padding-bottom: 200px; ma
 a { color: #293e60; }
 button { width: 100%; padding: 0.5em; background-color: #293e60; font-size: 1.5em; color: white; }
 h1 { background-color: #293e60; color: white; padding: 0.25em 0.5em; margin: 0;}
+p {padding-top: 0.35em}
+li {padding: 0.2em;}
 .template { display: none; }
 .race { padding: 1em; }
 .race:nth-child(odd) {background-color: white;}
