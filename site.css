@@ -12,7 +12,7 @@ li {padding: 0.2em;}
 .img-container { display: inline-block; height: 150px; width: 100px; }
 img {width: 100px; height: 150px; vertical-align: middle; }
 .img-padded { padding: 0.4em }
-label { display: inline-block; width: 4rem; font-family: Segoe UI Emoji; font-size: 1.5em; margin: 0; padding: 0; text-align: center; }
+label { display: inline-block; width: 4rem; font-family: Segoe UI Emoji; font-size: 1.5em; margin: 0; padding: 0; text-align: center; user-select: none;}
 input:checked + label { font-size: 3em; }
 input { display:none; }
 .small { font-size: 0.8rem; }
