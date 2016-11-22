@@ -70,7 +70,7 @@ function getAllSavedData() {
 function showModal(targetId) {
     var body = document.querySelector('body');
     var overlay = document.createElement('div');
-    overlay.setAttribute('style', 'position: fixed; top:0; right:0; bottom:0; left:0; background-color: rgba(0,0,0,0.5); z-index: 98;');
+    overlay.setAttribute('style', 'position: fixed; top:0; right:0; bottom:0; left:0; background-color: rgba(0,0,0,0.7); z-index: 98;');
     body.appendChild(overlay);
     var modal = document.querySelector('#' + targetId);
     modal.setAttribute('style', 'position: fixed; margin:auto; z-index: 99; display: block;');
@@ -79,7 +79,7 @@ function showModal(targetId) {
 function showModalText(textToDisplay) {
     var body = document.querySelector('body');
     var overlay = document.createElement('div');
-    overlay.setAttribute('style', 'position: fixed; top:0; right:0; bottom:0; left:0; background-color: rgba(0,0,0,0.5); z-index: 98;');
+    overlay.setAttribute('style', 'position: fixed; top:0; right:0; bottom:0; left:0; background-color: rgba(0,0,0,0.7); z-index: 98;');
     body.appendChild(overlay);
     var modal = document.createElement('div');
     modal.setAttribute('class', 'modal');
