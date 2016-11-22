@@ -33,6 +33,11 @@
     <button id="btn">OK!</button>
 </p>
 
+<div id="divModal" class="modal">
+    <p id="pNextVoterMessage"></p>
+    <p><button id="btnCloseModal">OK</button></p>
+</div>
+
 <script src="site.js"></script>
 <script>
     var voterName = window.location.search.substring(1);
@@ -40,8 +45,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         var allData = getAllSavedData();
         if (!allData || !allData.voters || allData.voters.indexOf(voterName) < 0) {
-            alert('This voter is not registered.');
-            window.location = "index.html";
+            showModalText('This voter is not registered.');
         }
         document.getElementById('spanVoterName').innerHTML = voterName; 
     });
@@ -49,8 +53,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         var allData = getAllSavedData();
         if (!allData || !allData.candidates) {
-            alert('No current election.');
-            window.location('index.html');
+            showModalText('No current election.');
         }
 
         var templateNode = document.getElementById('template');
@@ -113,13 +116,16 @@
         saveData(allData);
 
         var idx = allData.voters.indexOf(voterName);
-        if (idx < allData.voters.length - 1) {
-            alert(allData.voters[idx+1] + "'s turn!");
-            window.location = "vote.html?" + allData.voters[idx+1];
-        } else {
-            alert('All done!');
-            window.location = "index.html";
-        }
+        var nextVoterMessage = (idx < allData.voters.length - 1) ? allData.voters[idx+1] + "'s turn!" : 'All done!';
+        document.getElementById('pNextVoterMessage').innerHTML = nextVoterMessage;
+        showModal('divModal');
+    });
+
+    document.getElementById('btnCloseModal').addEventListener('click', function() {
+        var allData = getAllSavedData();
+        var idx = allData.voters.indexOf(voterName);
+        var url = (idx < allData.voters.length - 1) ? 'vote.html?' + allData.voters[idx+1] : 'index.html';
+        window.location = url;
     });
 </script>
 
