@@ -24,6 +24,11 @@
 <div>
     <button id="btn">Create Election</button>
 </div>
+    
+<div id="divModal" class="modal">
+    <p>Election created!</p>
+    <button id="btnCloseModal">OK</button>
+</div>
 
 <script src="site.js"></script>
 <script>
@@ -68,8 +73,11 @@
         }
 
         saveData({candidates: candidates});
-        alert('Election created.');
-        window.location = 'index.html';
+        showModal('divModal');
+    });
+    
+    document.getElementById('btnCloseModal').addEventListener('click', function() {
+        window.location = 'index.html'; 
     });
 </script>
 </body>
