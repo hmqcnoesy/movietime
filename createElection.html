@@ -13,7 +13,7 @@
 <p><a href="index.html">Back to Home</a></p>
 
 <div id="template" class="race template">
-    <img src="" data-src="" />
+    <div class="img-container"><img src="" data-src="" /></div>
     <label>♻️</label>
 </div>
 
@@ -68,7 +68,7 @@
         var candidates = {};
         var images = document.getElementsByTagName('img');
         for (var i = 0; i < images.length; i++) {
-            if (images[i].parentNode.classList.contains('template')) continue;
+            if (images[i].parentNode.parentNode.classList.contains('template')) continue;
             candidates[images[i].getAttribute('data-src')] = { };
         }
 
