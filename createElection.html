@@ -53,14 +53,12 @@
     document.addEventListener('click', function (e) {
         if (e.target.tagName != 'LABEL') return;
 
-        var prevSibling = e.target.previousSibling;
-        while (prevSibling && prevSibling.nodeType != 1) {
-            prevSibling = prevSibling.previousSibling;
-        }
+        var parentNode = e.target.parentNode;
+        var imgElement = parentNode.querySelector('img');
         
         getRandomCandidates(1, function(data) {
-            prevSibling.setAttribute('src', 'img/' + data[0]);
-            prevSibling.setAttribute('data-src', data[0]);
+            imgElement.setAttribute('src', 'img/' + data[0]);
+            imgElement.setAttribute('data-src', data[0]);
         });
     });
 
