@@ -41,6 +41,7 @@
 <script src="site.js"></script>
 <script>
     var voterName = window.location.search.substring(1);
+    var sadLimit = getAllSavedData().sadLimit;
 
     document.addEventListener('DOMContentLoaded', function () {
         var allData = getAllSavedData();
@@ -91,6 +92,22 @@
         }
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+        var allFaces = document.querySelectorAll('input[type="radio"]');
+        for (var i = 0; i < allFaces.length; i++) {
+            allFaces[i].addEventListener('change', function(e) {
+                var sadCount = document.querySelectorAll('input:checked[value="0"]').length;
+                if (e.target.innerHTML == "☹️" && !e.target.checked) sadCount++;
+                if (e.target.innerHTML == "☹️" && e.target.checked) sadCount--;
+                if (sadCount >= sadLimit) {
+                    disableSad(true);
+                } else {
+                    disableSad(false);
+                }
+            });
+        }
+    });
+
     document.getElementById('btn').addEventListener('click', function() {
         var voterName = document.getElementById('spanVoterName').innerHTML;
         var votes2 = document.querySelectorAll('#divCandidates input:checked[value="2"]');
@@ -127,6 +144,16 @@
         var url = (idx < allData.voters.length - 1) ? 'vote.html?' + allData.voters[idx+1] : 'index.html';
         window.location = url;
     });
+
+    function disableSad(disable) {
+        var allSads = document.querySelectorAll('input[value="0"]');
+        for (var i = 0; i < allSads.length; i++ ) {
+            if (!allSads[i].checked) {
+                if (disable) allSads[i].setAttribute('disabled', true);
+                else allSads[i].removeAttribute('disabled');
+            }
+        }
+    }
 </script>
 
 </body>

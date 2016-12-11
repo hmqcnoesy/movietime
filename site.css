@@ -13,11 +13,15 @@ textarea { font-family: Segoe UI, Arial, Helvetica, sans-serif; }
 .img-container { display: table-cell; height: 150px; width: 100px; }
 img {width: 100px; height: 150px; vertical-align: middle; }
 .img-padded { padding: 0.4em }
-label { display: table-cell; width: 6rem; font-family: Segoe UI Emoji; font-size: 1.5em; margin: 0; padding: 0; text-align: center;  transition: 0.4s; -ms-user-select: none; -moz-user-select: none; -webkit-user-select: none; user-select: none; }
-input:checked + label { display: table-cell; width: 6rem; font-size: 2.5em; transition: 0.4s; transform: rotateY(360deg); transform-origin: center center; }
-input { display:none; }
+label { display: table-cell; width: 6rem; font-size: 1.5em; margin: 0; padding: 0; text-align: center;  transition: 0.4s; }
+label, span.label { font-family: Segoe UI Emoji; -ms-user-select: none; -moz-user-select: none; -webkit-user-select: none; user-select: none; }
+input[disabled] + label { opacity: 0.2 }
+input[type=radio]:checked + label { display: table-cell; width: 6rem; font-size: 2.5em; transition: 0.4s; transform: rotateY(360deg); transform-origin: center center; }
+input[type=radio] { display:none; }
 .small { font-size: 0.8rem; }
 .modal { display:none; text-align:center; background-color:white; position:fixed; top:25%; left:10%; right:10%; overflow:auto; padding:0.5em 1.5em; box-shadow:0 0 25px rgba(0,0,0,0.8); }
+input[type=number] { padding: 0.5em; text-align: center; width: 3em; -moz-appearance: textfield; }
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {-webkit-appearance: none; margin: 0; }
 
 @media screen and (min-width: 48em) {
     label { font-size: 2em; }

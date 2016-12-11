@@ -17,11 +17,26 @@
     <label>♻️</label>
 </div>
 
+<div>
+    <p>
+        <span>Total movies</span>
+        <input id="totalMovies" type="number" value="15" />
+    </p>
+    <p>
+        <button id="btnStart">Get Random Movies</button>
+    </p>
+</div>
+
+
 <div id="divCandidates">
 
 </div>
 
-<div>
+<div id="divCreate" style="display:none">
+    <p>
+        <span class="label">☹️ limit</span>
+        <input id="sadLimit" type="number" value="8" />
+    </p>
     <button id="btn">Create Election</button>
 </div>
     
@@ -32,8 +47,9 @@
 
 <script src="site.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        getRandomCandidates(15, function(data) {
+    document.getElementById('btnStart').addEventListener('click', function() {
+        document.getElementById('divCandidates').innerHTML = '';
+        getRandomCandidates(document.getElementById('totalMovies').value, function(data) {
             var templateNode = document.getElementById('template');
             var target = document.getElementById('divCandidates');
             for (var i = 0; i < data.length; i++) {
@@ -45,6 +61,7 @@
                 img.setAttribute('data-src', data[i]);
                 target.appendChild(cloned);
             }
+            document.getElementById('divCreate').removeAttribute('style');
         }, function(status) {
             alert(status);
         });
@@ -55,6 +72,7 @@
 
         var parentNode = e.target.parentNode;
         var imgElement = parentNode.querySelector('img');
+        if (!imgElement) return;
         
         getRandomCandidates(1, function(data) {
             imgElement.setAttribute('src', 'img/' + data[0]);
@@ -69,8 +87,9 @@
             if (images[i].parentNode.parentNode.classList.contains('template')) continue;
             candidates[images[i].getAttribute('data-src')] = { };
         }
-
-        saveData({candidates: candidates});
+        var sadLimit = parseInt(document.getElementById('sadLimit').value);
+        if (!sadLimit) sadLimit = 8;
+        saveData({candidates: candidates, sadLimit: sadLimit });
         showModal('divModal');
     });
     
