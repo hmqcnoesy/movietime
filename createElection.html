@@ -74,6 +74,9 @@
                 img.setAttribute('data-src', data[i]);
                 var sel = cloned.getElementsByTagName('select')[0];
                 sel.value = data[i];
+                sel.addEventListener('change', assignSpecifiedCandidate);
+                var lbl = cloned.getElementsByTagName('label')[0];
+                lbl.addEventListener('click', swapWithRandomCandidate);
                 target.appendChild(cloned);
             }
             document.getElementById('divCreate').removeAttribute('style');
@@ -81,14 +84,7 @@
             alert(status);
         });
     });
-
-    document.addEventListener('click', function (e) {
-        if (e.target.tagName == 'LABEL') {
-            swapWithRandomCandidate(e.target.parentNode);
-        } else if (e.target.tagName == 'OPTION') {
-            assignSpecifiedCandidate(e.target.parentNode.parentNode.parentNode);
-        }
-    });
+    
 
     document.getElementById('btn').addEventListener('click', function () {
         var candidates = {};
@@ -109,9 +105,9 @@
     });
 
 
-    function swapWithRandomCandidate(containerNode) {
-        var selElement = containerNode.querySelector('select');
-        var imgElement = containerNode.querySelector('img');
+    function swapWithRandomCandidate() {
+        var selElement = this.parentNode.querySelector('select');
+        var imgElement = this.parentNode.querySelector('img');
         if (!imgElement) return;
         
         getRandomCandidates(1, function(data) {
@@ -123,8 +119,8 @@
 
 
     function assignSpecifiedCandidate(containerNode) {
-        var assignedCandidate = containerNode.querySelector('select').value;
-        var imgElement = containerNode.querySelector('img');
+        var assignedCandidate = this.parentNode.parentNode.parentNode.querySelector('select').value;
+        var imgElement = this.parentNode.parentNode.parentNode.querySelector('img');
         imgElement.setAttribute('src', 'img/' + assignedCandidate);
         imgElement.setAttribute('data-src', assignedCandidate);
     }
