@@ -8,7 +8,7 @@ p {padding-top: 0.35em}
 li {padding: 0.3em;}
 textarea { font-family: Segoe UI, Arial, Helvetica, sans-serif; }
 .template { display: none; }
-.race { padding: 1em; }
+.race { padding: 1em; overflow-x:hidden; }
 .race:nth-child(odd) {background-color: white;}
 .img-container { display: table-cell; height: 150px; width: 100px; }
 img {width: 100px; height: 150px; vertical-align: middle; }
