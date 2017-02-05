@@ -111,6 +111,7 @@
         if (!imgElement) return;
         
         getRandomCandidates(1, function(data) {
+            imgElement.setAttribute('src', '');
             imgElement.setAttribute('src', 'img/' + data[0]);
             imgElement.setAttribute('data-src', data[0]);
             selElement.value = data[0];
@@ -121,6 +122,7 @@
     function assignSpecifiedCandidate() {
         var assignedCandidate = this.parentNode.parentNode.querySelector('select').value;
         var imgElement = this.parentNode.parentNode.querySelector('img');
+        imgElement.setAttribute('src', '');
         imgElement.setAttribute('src', 'img/' + assignedCandidate);
         imgElement.setAttribute('data-src', assignedCandidate);
         console.log(imgElement.src);
