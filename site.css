@@ -10,7 +10,7 @@ textarea { font-family: Segoe UI, Arial, Helvetica, sans-serif; }
 .template { display: none; }
 .race { padding: 1em; }
 .race:nth-child(odd) {background-color: white;}
-.race select { width: 100%; }
+.race select { width: 100%; padding: 0.5em; margin-top: 0.5em; }
 .img-container { display: table-cell; height: 150px; width: 100px; }
 img {width: 100px; height: 150px; vertical-align: middle; }
 .img-padded { padding: 0.4em }
