@@ -14,7 +14,8 @@
 
 <div id="template" class="race template">
     <div class="img-container"><img src="" data-src="" /></div>
-    <label>♻️</label>
+    <label>🎲</label>
+    <div class="img-container"><select></select></div>
 </div>
 
 <div>
@@ -47,6 +48,18 @@
 
 <script src="site.js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        getAllCandidates(function(data) {
+            var sel = document.querySelector('#template select');
+            for (var i = 0; i < data.movies.length; i++) {
+                var opt = document.createElement('option');
+                opt.value = data.movies[i];
+                opt.innerHTML = data.movies[i].replace('.jpg', '').replace(/([A-Z0-9])/g, ' $&');
+                sel.appendChild(opt);
+            }
+        });
+    });
+
     document.getElementById('btnStart').addEventListener('click', function() {
         document.getElementById('divCandidates').innerHTML = '';
         getRandomCandidates(document.getElementById('totalMovies').value, function(data) {
@@ -59,6 +72,8 @@
                 var img = cloned.getElementsByTagName('img')[0];
                 img.src = 'img/' + data[i];
                 img.setAttribute('data-src', data[i]);
+                var sel = cloned.getElementsByTagName('select')[0];
+                sel.value = data[i];
                 target.appendChild(cloned);
             }
             document.getElementById('divCreate').removeAttribute('style');
@@ -68,16 +83,11 @@
     });
 
     document.addEventListener('click', function (e) {
-        if (e.target.tagName != 'LABEL') return;
-
-        var parentNode = e.target.parentNode;
-        var imgElement = parentNode.querySelector('img');
-        if (!imgElement) return;
-        
-        getRandomCandidates(1, function(data) {
-            imgElement.setAttribute('src', 'img/' + data[0]);
-            imgElement.setAttribute('data-src', data[0]);
-        });
+        if (e.target.tagName == 'LABEL') {
+            swapWithRandomCandidate(e.target.parentNode);
+        } else if (e.target.tagName == 'OPTION') {
+            assignSpecifiedCandidate(e.target.parentNode.parentNode.parentNode);
+        }
     });
 
     document.getElementById('btn').addEventListener('click', function () {
@@ -92,10 +102,33 @@
         saveData({candidates: candidates, sadLimit: sadLimit });
         showModal('divModal');
     });
-    
+
+
     document.getElementById('btnCloseModal').addEventListener('click', function() {
         window.location = 'index.html'; 
     });
+
+
+    function swapWithRandomCandidate(containerNode) {
+        var selElement = containerNode.querySelector('select');
+        var imgElement = containerNode.querySelector('img');
+        if (!imgElement) return;
+        
+        getRandomCandidates(1, function(data) {
+            imgElement.setAttribute('src', 'img/' + data[0]);
+            imgElement.setAttribute('data-src', data[0]);
+            selElement.value = data[0];
+        });
+    }
+
+
+    function assignSpecifiedCandidate(containerNode) {
+        var assignedCandidate = containerNode.querySelector('select').value;
+        var imgElement = containerNode.querySelector('img');
+        imgElement.setAttribute('src', 'img/' + assignedCandidate);
+        imgElement.setAttribute('data-src', assignedCandidate);
+    }
+
 </script>
 </body>
 </html>

@@ -16,7 +16,11 @@ function getAllCandidates(callbackSuccess, callbackFailure) {
     var xhr = new XMLHttpRequest();
     xhr.onreadystatechange = function () {
         if (xhr.readyState == 4) {
-            if (xhr.status == 200) callbackSuccess(JSON.parse(xhr.responseText));
+            if (xhr.status == 200) {
+                var data = JSON.parse(xhr.responseText);
+                allCandidates = data;
+                callbackSuccess(data);
+            }
             else callbackFailure(xhr.statusText);
         }
     };
