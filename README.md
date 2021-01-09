@@ -1,1 +1,1 @@
-# sulp
+To add a movie, add the .jpg file to img folder, then add its filename to movies.json
